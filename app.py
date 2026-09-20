@@ -12,7 +12,7 @@ GENRES = {"Adventure": "Adventure", "RPG": "RPG", "Strategy": "Strategy", "Actio
 
 @st.cache_data
 def load():
-    d = pd.read_csv(Path(__file__).parent / "data" / "steam_clean.csv", parse_dates=["date"])
+    d = pd.read_csv("steam_clean.csv", parse_dates=["date"])
     d = d[d.petit_studio & (d.price > 0)]
     d["genre"] = d.genres.fillna("").str.split(";").apply(lambda g: [GENRES[x] for x in g if x in GENRES])
     d["period"] = d.fetes.map({True: "Holidays (Nov–Dec)", False: "Rest of the year"})
